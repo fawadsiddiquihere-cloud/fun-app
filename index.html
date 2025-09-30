@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compliment Chain</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background: #fafafa; }
+    .card { padding: 20px; margin: auto; border-radius: 12px; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; }
+    button { margin-top: 20px; padding: 10px 20px; border: none; border-radius: 8px; background: orange; color: white; cursor: pointer; font-size: 16px; }
+    button:hover { background: darkorange; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 id="compliment">Click below for a compliment</h2>
+    <button onclick="getCompliment()">Generate Compliment</button>
+    <p><a id="shareLink" href="#" target="_blank">Share on Facebook</a></p>
+  </div>
+
+  <script>
+    async function getCompliment() {
+      const res = await fetch('/api/compliment');
+      const data = await res.json();
+      document.getElementById('compliment').innerText = data.compliment;
+      document.getElementById('shareLink').href =
+        `https://www.facebook.com/sharer/sharer.php?u=https://example.com&quote=${encodeURIComponent(data.compliment)}`;
+    }
+  </script>
+</body>
+</html>
